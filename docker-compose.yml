@@ -1,33 +1,9 @@
- 
+version: '2'
 services:
- 
-  proxy:
-    image: jakemiller/latest
+  app:
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    image: jacobmiller
     ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
-    networks:
-      - server-proxy-network
-    environment:
-      - LISTENER_ADDRESS=swarm-listener
-      - MODE=swarm
-    deploy:
-      replicas: 2
- 
-  swarm-listener:
-    image: jakemiller/latest
-    networks:
-      - server-proxy-network
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - DF_NOTIFY_CREATE_SERVICE_URL=http://proxy:8080/v1/reactjs-tutorial-1/reconfigure
-      - DF_NOTIFY_REMOVE_SERVICE_URL=http://proxy:8080/v1/reactjs-tutorial-1/remove
-    deploy:
-      placement:
-        constraints: [node.role == manager]
- 
-networks:
-  proxy:
-    external: true
+     - "8080:8080"
