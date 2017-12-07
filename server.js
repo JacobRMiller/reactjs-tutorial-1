@@ -9,7 +9,7 @@ app.get('/', (req, res) =>
 )
 
 // Launch the server on port 3000
-const server = app.listen(8080, () => {
+const server = app.listen(80, () => {
   const { address, port } = server.address();
   console.log(`Listening at http://${address}:${port}`);
 });
